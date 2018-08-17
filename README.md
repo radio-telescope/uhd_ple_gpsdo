@@ -1,7 +1,7 @@
 UHD_PLE_GPSDO
 =============
 
-Ettus B200 and B210 with [PLE GPSDO](http://www.pletronics.com/uploads/datasheets/gps-tcxo.pdf).
+Ettus [B200](https://www.ettus.com/product/details/UB200-KIT) and [B210](https://www.ettus.com/product/details/UB210-KIT) with [PLE GPSDO](http://www.pletronics.com/uploads/datasheets/gps-tcxo.pdf).
 
 ![PLE GPSDO](http://www.pletronics.com/uploads/datasheets/GPS_Sink_Module.jpg)
 

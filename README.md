@@ -3,7 +3,7 @@ UHD_PLE_GPSDO
 
 Ettus [B200](https://www.ettus.com/product/details/UB200-KIT) and [B210](https://www.ettus.com/product/details/UB210-KIT) with [PLE GPSDO](http://www.pletronics.com/uploads/datasheets/gps-tcxo.pdf).
 
-![PLE GPSDO](http://www.pletronics.com/uploads/datasheets/GPS_Sink_Module.jpg)
+![PLE GPSDO](https://github.com/radio-telescope/uhd_ple_gpsdo/GPS_Sink_Module.jpg)
 
 Building UHD_PLE_GPSDO
 ======================

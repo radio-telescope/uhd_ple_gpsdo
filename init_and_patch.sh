@@ -11,26 +11,26 @@ git submodule init
 git submodule update
 
 (
-	cd uhd-src
+    cd uhd-src
 
-	git checkout $TAG_UHD
+    git checkout $TAG_UHD
 
-	patch -p0 < ../host.patch
+    patch -p0 < ../host.patch
 
-	#########################################################################
+    #########################################################################
 
-	git submodule init
-	git submodule update
+    git submodule init
+    git submodule update
 
-	(
-		cd fpga-src
+    (
+        cd fpga-src
 
-		git checkout $TAG_FPGA
+        git checkout $TAG_FPGA
 
-		patch -p0 < ../../fpga.patch
-	)
+        patch -p0 < ../../fpga.patch
+    )
 
-	#########################################################################
+    #########################################################################
 )
 
 #############################################################################

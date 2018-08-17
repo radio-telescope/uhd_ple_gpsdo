@@ -8,6 +8,7 @@ Building UHD_PLE_GPSDO
 
 See https://files.ettus.com/manual/page_build_guide.html for dependencies.
 
+```shell
 git clone https://github.com/radio-telescope/uhd_ple_gpsdo.git
 
 cd uhd_ple_gpsdo
@@ -23,3 +24,4 @@ cd ../../usrp3/top/b200
 source <install_dir>/Xilinx/14.7/ISE_DS/settings64.sh (64-bit platform)
 source <install_dir>/Xilinx/14.7/ISE_DS/settings32.sh (32-bit platform)
 make
+```

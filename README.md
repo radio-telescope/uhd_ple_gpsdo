@@ -21,7 +21,7 @@ cd uhd-src/host/build
 cmake ..
 make
 
-cd ../../usrp3/top/b200
+cd ../../fpga-src/usrp3/top/b200
 source <install_dir>/Xilinx/14.7/ISE_DS/settings64.sh (64-bit platform)
 source <install_dir>/Xilinx/14.7/ISE_DS/settings32.sh (32-bit platform)
 make

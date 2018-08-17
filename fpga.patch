@@ -1,0 +1,56 @@
+diff --git usrp3/top/b200/b200.ucf usrp3/top/b200/b200.ucf
+index 501b06c3..d4198b9c 100644
+--- usrp3/top/b200/b200.ucf
++++ usrp3/top/b200/b200.ucf
+@@ -185,8 +185,6 @@ NET "GPIF_*" SLEW = SLOW;
+ ## GPS
+ 
+ NET "gps_lock"  LOC = "B14" | IOSTANDARD = LVCMOS33 ;
+-NET "gps_rxd"  LOC = "A15" | IOSTANDARD = LVCMOS33 ;
+-NET "gps_txd"  LOC = "A14" | IOSTANDARD = LVCMOS33  | PULLUP;
+ NET "gps_txd_nmea"  LOC = "C15" | IOSTANDARD = LVCMOS33 | PULLUP ;
+ 
+ ## LEDS
+diff --git usrp3/top/b200/b200.v usrp3/top/b200/b200.v
+index df11840d..a005202e 100644
+--- usrp3/top/b200/b200.v
++++ usrp3/top/b200/b200.v
+@@ -80,8 +80,6 @@ module b200 (
+ 
+    // GPS
+    input 	 gps_lock,
+-   output 	 gps_rxd,
+-   input 	 gps_txd, // FPGA has pullup for unpopulated GPS
+    input 	 gps_txd_nmea, // FPGA has pullup for unpopulated GPS
+ 
+    // LEDS
+@@ -297,7 +295,7 @@ module b200 (
+ 
+       .pps_int(PPS_IN_INT), .pps_ext(PPS_IN_EXT),
+ 
+-      .rxd(gps_txd), .txd(gps_rxd),
++      .rxd(gps_txd_nmea),
+       .sclk(sclk), .sen(sen), .mosi(mosi), .miso(miso),
+       .rb_misc({31'b0, pll_lock}), .misc_outs(misc_outs),
+ 
+diff --git usrp3/top/b200/b200_core.v usrp3/top/b200/b200_core.v
+index bef5fe3e..5646b4aa 100644
+--- usrp3/top/b200/b200_core.v
++++ usrp3/top/b200/b200_core.v
+@@ -51,7 +51,6 @@ module b200_core
+     // gpsdo uart
+     ////////////////////////////////////////////////////////////////////
+     input 	  rxd,
+-    output 	  txd,
+ 
+     ////////////////////////////////////////////////////////////////////
+     // core interfaces
+@@ -170,7 +169,7 @@ module b200_core
+ 
+     cvita_uart #(.SIZE(7)) uart
+     (
+-        .clk(bus_clk), .rst(bus_rst), .rxd(rxd), .txd(txd),
++        .clk(bus_clk), .rst(bus_rst), .rxd(rxd),
+         .i_tdata(u0i_ctrl_tdata), .i_tlast(u0i_ctrl_tlast), .i_tvalid(u0i_ctrl_tvalid), .i_tready(u0i_ctrl_tready),
+         .o_tdata(u0_resp_tdata), .o_tlast(u0_resp_tlast), .o_tvalid(u0_resp_tvalid), .o_tready(u0_resp_tready)
+     );

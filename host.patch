@@ -1,7 +1,7 @@
-diff --git a/host/lib/usrp/b200/b200_uart.cpp b/host/lib/usrp/b200/b200_uart.cpp
+diff --git host/lib/usrp/b200/b200_uart.cpp host/lib/usrp/b200/b200_uart.cpp
 index 8c8e2462a..debdd4d40 100644
---- a/host/lib/usrp/b200/b200_uart.cpp
-+++ b/host/lib/usrp/b200/b200_uart.cpp
+--- host/lib/usrp/b200/b200_uart.cpp
++++ host/lib/usrp/b200/b200_uart.cpp
 @@ -23,7 +23,7 @@ struct b200_uart_impl : b200_uart
          _xport(xport),
          _sid(sid),
@@ -11,10 +11,10 @@ index 8c8e2462a..debdd4d40 100644
          _line_queue(4096)
      {
          /*NOP*/
-diff --git a/host/lib/usrp/gps_ctrl.cpp b/host/lib/usrp/gps_ctrl.cpp
+diff --git host/lib/usrp/gps_ctrl.cpp host/lib/usrp/gps_ctrl.cpp
 index 67803bec6..89ab28e3b 100644
---- a/host/lib/usrp/gps_ctrl.cpp
-+++ b/host/lib/usrp/gps_ctrl.cpp
+--- host/lib/usrp/gps_ctrl.cpp
++++ host/lib/usrp/gps_ctrl.cpp
 @@ -138,7 +138,8 @@ private:
  
      const std::list<std::string> keys{"GPGGA", "GPRMC", "SERVO"};

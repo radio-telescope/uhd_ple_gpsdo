@@ -1,13 +1,36 @@
 #!/bin/bash
 
-#git submodule init
+#############################################################################
+
+TAG_UHD=v3.13.0.2
+TAG_FPGA=v3.13.0.1
+
+#############################################################################
+
+git submodule init
 git submodule update
 
 (
 	cd uhd-src
 
-	git checkout v3.13.0.2
+	git checkout $TAG_UHD
 
-#	patch -p0 < ../host.patch
+	patch -p0 < ../host.patch
+
+	#########################################################################
+
+	git submodule init
+	git submodule update
+
+	(
+		cd fpga-src
+
+		git checkout $TAG_FPGA
+
+		patch -p0 < ../../fpga.patch
+	)
+
+	#########################################################################
 )
 
+#############################################################################

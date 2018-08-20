@@ -1,3 +1,9 @@
+diff --git fpga-src fpga-src
+--- fpga-src
++++ fpga-src
+@@ -1 +1 @@
+-Subproject commit 2e310fae0a6a7354c250fca36060daaeaac1535f
++Subproject commit 2e310fae0a6a7354c250fca36060daaeaac1535f-dirty
 diff --git host/lib/usrp/b200/b200_uart.cpp host/lib/usrp/b200/b200_uart.cpp
 index 8c8e2462a..debdd4d40 100644
 --- host/lib/usrp/b200/b200_uart.cpp
@@ -12,7 +18,7 @@ index 8c8e2462a..debdd4d40 100644
      {
          /*NOP*/
 diff --git host/lib/usrp/gps_ctrl.cpp host/lib/usrp/gps_ctrl.cpp
-index 67803bec6..59e68db6d 100644
+index 67803bec6..5bd7239c7 100644
 --- host/lib/usrp/gps_ctrl.cpp
 +++ host/lib/usrp/gps_ctrl.cpp
 @@ -138,7 +138,7 @@ private:
@@ -33,28 +39,33 @@ index 67803bec6..59e68db6d 100644
      while(boost::get_system_time() < comm_timeout) {
        reply = _recv();
        //known devices are JL "FireFly", "GPSTCXO", and "LC_XO"
-@@ -406,8 +406,22 @@ private:
+@@ -406,7 +406,28 @@ private:
    }
  
    std::string _recv(double timeout = GPS_TIMEOUT_DELAY_MS/1000.){
 -      return _uart->read_uart(timeout);
--  }
 +
-+      std::string msg = _uart->read_uart(timeout);
++    std::string msg = _uart->read_uart(timeout);
 +
-+      std::size_t found = msg.find("$GP");
++    std::size_t idx = msg.find("$GP");
 +
-+      if(found != std::string::npos)
-+      {
-+        msg = msg.substr(found);
-+      }
-+      else
-+      {
++    if(idx != std::string::npos)
++    {
++      msg = msg.substr(idx);
++    }
++    else
++    {
++      if(msg.find("FireFly") == std::string::npos
++         and
++         msg.find( "LC_XO" ) == std::string::npos
++         and
++         msg.find("GPSTCXO") == std::string::npos
++       ) {
 +        msg.clear();
 +      }
++    }
 +
-+      return msg;
-+}
++    return msg;
+   }
  
    void _send(const std::string &buf){
-       return _uart->write_uart(buf);

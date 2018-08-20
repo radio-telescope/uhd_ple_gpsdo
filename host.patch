@@ -48,6 +48,10 @@ index 67803bec6..89ab28e3b 100644
 +      {
 +        msg = msg.substr(found);
 +      }
++      else
++      {
++        msg.clear();
++      }
 +
 +      return msg;
    }

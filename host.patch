@@ -1,9 +1,3 @@
-diff --git fpga-src fpga-src
---- fpga-src
-+++ fpga-src
-@@ -1 +1 @@
--Subproject commit 2e310fae0a6a7354c250fca36060daaeaac1535f
-+Subproject commit 2e310fae0a6a7354c250fca36060daaeaac1535f-dirty
 diff --git host/lib/usrp/b200/b200_uart.cpp host/lib/usrp/b200/b200_uart.cpp
 index 8c8e2462a..debdd4d40 100644
 --- host/lib/usrp/b200/b200_uart.cpp

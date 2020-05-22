@@ -18,7 +18,7 @@ cd uhd_ple_gpsdo
 
 mkdir -p uhd-src/host/build
 cd uhd-src/host/build
-cmake ..
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/uhd ..
 make
 
 cd ../../fpga-src/usrp3/top/b200

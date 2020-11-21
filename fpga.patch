@@ -1,7 +1,7 @@
-diff --git usrp3/top/b200/b200.ucf usrp3/top/b200/b200.ucf
-index 501b06c3..d4198b9c 100644
---- usrp3/top/b200/b200.ucf
-+++ usrp3/top/b200/b200.ucf
+diff --git a/fpga/usrp3/top/b200/b200.ucf b/fpga/usrp3/top/b200/b200.ucf
+index 501b06c33..d4198b9ca 100644
+--- a/fpga/usrp3/top/b200/b200.ucf
++++ b/fpga/usrp3/top/b200/b200.ucf
 @@ -185,8 +185,6 @@ NET "GPIF_*" SLEW = SLOW;
  ## GPS
  
@@ -11,10 +11,10 @@ index 501b06c3..d4198b9c 100644
  NET "gps_txd_nmea"  LOC = "C15" | IOSTANDARD = LVCMOS33 | PULLUP ;
  
  ## LEDS
-diff --git usrp3/top/b200/b200.v usrp3/top/b200/b200.v
-index df11840d..a005202e 100644
---- usrp3/top/b200/b200.v
-+++ usrp3/top/b200/b200.v
+diff --git a/fpga/usrp3/top/b200/b200.v b/fpga/usrp3/top/b200/b200.v
+index 811842f32..92160dafa 100644
+--- a/fpga/usrp3/top/b200/b200.v
++++ b/fpga/usrp3/top/b200/b200.v
 @@ -80,8 +80,6 @@ module b200 (
  
     // GPS
@@ -33,10 +33,10 @@ index df11840d..a005202e 100644
        .sclk(sclk), .sen(sen), .mosi(mosi), .miso(miso),
        .rb_misc({31'b0, pll_lock}), .misc_outs(misc_outs),
  
-diff --git usrp3/top/b200/b200_core.v usrp3/top/b200/b200_core.v
-index bef5fe3e..5646b4aa 100644
---- usrp3/top/b200/b200_core.v
-+++ usrp3/top/b200/b200_core.v
+diff --git a/fpga/usrp3/top/b200/b200_core.v b/fpga/usrp3/top/b200/b200_core.v
+index f03c5ea1f..d51efaab3 100644
+--- a/fpga/usrp3/top/b200/b200_core.v
++++ b/fpga/usrp3/top/b200/b200_core.v
 @@ -51,7 +51,6 @@ module b200_core
      // gpsdo uart
      ////////////////////////////////////////////////////////////////////

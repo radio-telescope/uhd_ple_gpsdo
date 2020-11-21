@@ -1,65 +1,67 @@
-diff --git host/lib/usrp/b200/b200_uart.cpp host/lib/usrp/b200/b200_uart.cpp
-index 8c8e2462a..debdd4d40 100644
---- host/lib/usrp/b200/b200_uart.cpp
-+++ host/lib/usrp/b200/b200_uart.cpp
+diff --git a/host/lib/usrp/b200/b200_uart.cpp b/host/lib/usrp/b200/b200_uart.cpp
+index b78690705..775bedcb0 100644
+--- a/host/lib/usrp/b200/b200_uart.cpp
++++ b/host/lib/usrp/b200/b200_uart.cpp
 @@ -23,7 +23,7 @@ struct b200_uart_impl : b200_uart
-         _xport(xport),
-         _sid(sid),
-         _count(0),
--        _baud_div(std::floor(B200_BUS_CLOCK_RATE/115200 + 0.5)),
-+        _baud_div(std::floor(B200_BUS_CLOCK_RATE/38400 + 0.5)),
-         _line_queue(4096)
+         : _xport(xport)
+         , _sid(sid)
+         , _count(0)
+-        , _baud_div(std::floor(B200_BUS_CLOCK_RATE / 115200 + 0.5))
++        , _baud_div(std::floor(B200_BUS_CLOCK_RATE / 38400 + 0.5))
+         , _line_queue(4096)
      {
          /*NOP*/
-diff --git host/lib/usrp/gps_ctrl.cpp host/lib/usrp/gps_ctrl.cpp
-index 67803bec6..5bd7239c7 100644
---- host/lib/usrp/gps_ctrl.cpp
-+++ host/lib/usrp/gps_ctrl.cpp
-@@ -138,7 +138,7 @@ private:
+diff --git a/host/lib/usrp/gps_ctrl.cpp b/host/lib/usrp/gps_ctrl.cpp
+index 60866b85e..f56473683 100644
+--- a/host/lib/usrp/gps_ctrl.cpp
++++ b/host/lib/usrp/gps_ctrl.cpp
+@@ -136,7 +136,7 @@ private:
  
-     const std::list<std::string> keys{"GPGGA", "GPRMC", "SERVO"};
-     static const boost::regex servo_regex("^\\d\\d-\\d\\d-\\d\\d.*$");
--    static const boost::regex gp_msg_regex("^\\$GP.*,\\*[0-9A-F]{2}$");
-+    static const boost::regex gp_msg_regex("^\\$GP.*\\*[0-9A-F]{2}$");
-     std::map<std::string,std::string> msgs;
+         const std::list<std::string> keys{"GPGGA", "GPRMC", "SERVO"};
+         static const std::regex servo_regex("^\\d\\d-\\d\\d-\\d\\d.*$");
+-        static const std::regex gp_msg_regex("^\\$GP.*,\\*[0-9A-F]{2}$");
++        static const std::regex gp_msg_regex("^\\$GP.*\\*[0-9A-F]{2}$");
+         std::map<std::string, std::string> msgs;
  
-     // Get all GPSDO messages available
-@@ -206,7 +206,7 @@ public:
+         // Get all GPSDO messages available
+@@ -194,9 +194,9 @@ public:
  
-     //then we loop until we either timeout, or until we get a response that indicates we're a JL device
-     //maximum response time was measured at ~320ms, so we set the timeout at 650ms
--    const boost::system_time comm_timeout = boost::get_system_time() + milliseconds(650);
-+    const boost::system_time comm_timeout = boost::get_system_time() + milliseconds(1500);
-     while(boost::get_system_time() < comm_timeout) {
-       reply = _recv();
-       //known devices are JL "FireFly", "GPSTCXO", and "LC_XO"
-@@ -406,7 +406,28 @@ private:
-   }
+         // then we loop until we either timeout, or until we get a response that indicates
+         // we're a JL device maximum response time was measured at ~320ms, so we set the
+-        // timeout at 650ms
++        // timeout at 1500ms
+         const boost::system_time comm_timeout =
+-            boost::get_system_time() + milliseconds(650);
++            boost::get_system_time() + milliseconds(1500);
+         while (boost::get_system_time() < comm_timeout) {
+             reply = _recv();
+             // known devices are JL "FireFly", "GPSTCXO", and "LC_XO"
+@@ -403,7 +403,27 @@ private:
  
-   std::string _recv(double timeout = GPS_TIMEOUT_DELAY_MS/1000.){
--      return _uart->read_uart(timeout);
+     std::string _recv(double timeout = GPS_TIMEOUT_DELAY_MS / 1000.)
+     {
+-        return _uart->read_uart(timeout);
++        std::string msg = _uart->read_uart(timeout);
 +
-+    std::string msg = _uart->read_uart(timeout);
++        std::size_t idx = msg.find("$GP");
 +
-+    std::size_t idx = msg.find("$GP");
++        if(idx != std::string::npos)
++        {
++          msg = msg.substr(idx);
++        }
++        else
++        {
++          if(msg.find("FireFly") == std::string::npos
++             or
++             msg.find( "LC_XO" ) == std::string::npos
++             or
++             msg.find("GPSTCXO") == std::string::npos
++           ) {
++            msg.clear();
++          }
++        }
 +
-+    if(idx != std::string::npos)
-+    {
-+      msg = msg.substr(idx);
-+    }
-+    else
-+    {
-+      if(msg.find("FireFly") == std::string::npos
-+         and
-+         msg.find( "LC_XO" ) == std::string::npos
-+         and
-+         msg.find("GPSTCXO") == std::string::npos
-+       ) {
-+        msg.clear();
-+      }
-+    }
-+
-+    return msg;
-   }
++        return msg;
+     }
  
-   void _send(const std::string &buf){
+     void _send(const std::string& buf)

@@ -23,7 +23,7 @@ git submodule update
     git submodule update
 
     (
-        cd fpga-src
+        cd fpga
 
         git checkout $TAG_FPGA
 
